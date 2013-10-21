@@ -35,9 +35,11 @@ class JustTmux
       x
     end
 
-    @to_s = new_session(session_name, h[0][:name], shell, h[0][:dir], 
-      h[0][:command]) +  h[1..-1].map {|x| new_window(x[:name], 
-      shell, x[:command]) }.join
+    
+    @to_s = new_session(session_name, h[0][:name], shell, 
+      "cd #{h[0][:dir]} && " + h[0][:command]) +  h[1..-1].map \
+      {|x| new_window(x[:name],  shell, "cd #{x[:dir]} && " + \
+          x[:command]) }.join
 
   end
 
@@ -48,10 +50,10 @@ class JustTmux
         [window_name, shell, command]
   end
 
-  def new_session(session_name, window_name, shell, dir, command)
+  def new_session(session_name, window_name, shell, command)
     r = "tmux new-session -d -s %s -n %s '%s'\n" % 
       [session_name, shell, window_name]
-    r + "tmux send-keys 'cd %s && %s' Enter\n" % [dir, command]
+    r + "tmux send-keys '%s' Enter\n" % [command]
   end
 
 end
