@@ -21,7 +21,7 @@ class JustTmux
   # pwd  home  /home/james/ruby
   #EOF
   #
-  def intialize(dynarex_file)
+  def initialize(dynarex_file)
 
     dynarex = Dynarex.new dynarex_file
 
