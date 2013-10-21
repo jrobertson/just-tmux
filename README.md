@@ -1,4 +1,4 @@
-Introducing the just-tmux gem
+# Introducing the just-tmux gem
 
 If you need to open tmux windows to run scripts from the command-line then this gem might be for you.
 
@@ -29,6 +29,6 @@ output:
     tmux new-session -d -s fun -n bash 'bash'
     tmux send-keys 'cd /home/james && lis' Enter
     tmux new-window -n home bash
-    tmux send-keys 'pwd' Enter
+    tmux send-keys 'cd /home/james/ruby && pwd' Enter
 
 tmux justtmux gem windows commandline
