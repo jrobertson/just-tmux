@@ -30,15 +30,16 @@ class JustTmux
     session_name = dynarex.summary[:session] || '0'
 
     h = dynarex.to_h.map do |x| 
-      x[:name] = shell if x[:name].empty?
-      x[:dir] = default_dir if x[:dir].empty?
+      x[:name]  = shell        if x[:name].nil?  or  x[:name].empty?
+      x[:dir]   = default_dir  if x[:dir].nil?   or  x[:dir].empty?
+      x[:sleep] = 0            if x[:sleep].nil? or  x[:sleep].empty?
       x
     end
     
     @to_s = new_session(session_name, h[0][:name], shell, 
-      "cd #{h[0][:dir]} && " + h[0][:command]) +  h[1..-1].map \
-      {|x| new_window(x[:name],  shell, "cd #{x[:dir]} && " + \
-          x[:command]) }.join
+      "cd #{h[0][:dir]} && " + h[0][:command]) + wait(h[0][:sleep]) +  
+      h[1..-1].map {|x| new_window(x[:name],  shell, "cd #{x[:dir]} && " + \
+          x[:command]) + wait(x[:sleep]) }.join
 
   end
 
@@ -53,6 +54,7 @@ class JustTmux
     "tmux new-window -n %s %s\n%s" % [window_name, shell, send_keys(command)]
   end  
 
-  def send_keys(command)  "tmux send-keys '%s' Enter\n" % command  end
+  def send_keys(command)  "tmux send-keys '%s' Enter\n" % command   end
+  def wait(duration)      "sleep %s\n"                  % duration  end
 
 end
