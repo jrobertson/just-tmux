@@ -25,9 +25,9 @@ class JustTmux
 
     dynarex = Dynarex.new dynarex_file
 
-    shell = dynarex.summary[:shell]
-    default_dir = File.expand_path dynarex.summary[:default_dir]
-    session_name = dynarex.summary[:session]
+    shell = dynarex.summary[:shell] || 'bash'
+    default_dir = File.expand_path dynarex.summary[:default_dir] || '~'
+    session_name = dynarex.summary[:session] || '0'
 
     h = dynarex.to_h.map do |x| 
       x[:name] = shell if x[:name].empty?
