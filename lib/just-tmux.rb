@@ -52,7 +52,7 @@ class JustTmux
 
   def new_session(session_name, window_name, shell, command)
     r = "tmux new-session -d -s %s -n %s '%s'\n" % 
-      [session_name, shell, window_name]
+      [session_name, window_name, shell]
     r + "tmux send-keys '%s' Enter\n" % [command]
   end
 
