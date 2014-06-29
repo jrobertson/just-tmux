@@ -21,9 +21,9 @@ class JustTmux
   # pwd  home  /home/james/ruby
   #EOF
   #
-  def initialize(dx)
+  def initialize(dynarex_file)
 
-    dynarex = dx.is_a?(Dynarex) ? dx : Dynarex.new(dx)
+    dynarex = Dynarex.new dynarex_file
 
     shell = dynarex.summary[:shell] || 'bash'
     default_dir = File.expand_path dynarex.summary[:default_dir] || '~'
