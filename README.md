@@ -31,4 +31,7 @@ output:
     tmux new-window -n home bash
     tmux send-keys 'cd /home/james/ruby && pwd' Enter
 
+
+Note: A Dynarex document can now be passed in.
+
 tmux justtmux gem windows commandline
